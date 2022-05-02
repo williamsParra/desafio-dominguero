@@ -6,8 +6,8 @@
 .cuadrado{
     display:inline-block;
     background-color:cornsilk;
-    width: 200px;
-    height: 200px;    
+    width: 180px;
+    height: 180px;    
     margin: 5px;
     border : solid 2px black;
 }
