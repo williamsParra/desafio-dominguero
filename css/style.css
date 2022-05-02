@@ -1,0 +1,17 @@
+
+.contenedor{
+    display:block
+}
+
+.cuadrado{
+    display:inline-block;
+    background-color:cornsilk;
+    width: 200px;
+    height: 200px;    
+    margin: 5px;
+    border : solid 2px black;
+}
+
+.activo{
+    background-color: aqua;
+}
