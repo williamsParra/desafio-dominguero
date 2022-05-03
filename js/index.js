@@ -48,7 +48,6 @@ function drawTable(playLand, person, levelValue, deepValue) {
   }
   //calcular maximo nivel
   const maxLevel = playLand[reference.y].children.length;
-  console.log(maxLevel)
 
   //validar nivel (direccion hacia la derecha)
   if (person.x + levelValue > maxLevel-1) {
