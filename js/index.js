@@ -1,54 +1,66 @@
+//esperar la carga de la pagina
 window.onload = () => {
-  //esperar la carga de la pagina
-  const tablero = document.getElementsByClassName("cuadrado");
-  //sacar cantidad de cuadrados
-  const maximo = tablero.length;
-  let posicion = 1;
+  //extraer campo de juego
+  const playLand = document.getElementsByClassName("contenedor");
+  //inicializar navegacion
+  let person = {
+    y: 0,
+    x: 0,
+  };
+
   window.addEventListener("keydown", (e) => {
     if (e.code == "ArrowUp") {
-      posicion = dibujarTablero(posicion, tablero, maximo, -4);
+      person = drawTable(playLand, person, 0, -1);
     }
     if (e.code == "ArrowDown") {
-      posicion = dibujarTablero(posicion, tablero, maximo, +4);
+      person = drawTable(playLand, person, 0, 1);
     }
     if (e.code == "ArrowLeft") {
-      posicion = dibujarTablero(posicion, tablero, maximo, -1);
+      person = drawTable(playLand, person, -1, 0);
     }
     if (e.code == "ArrowRight") {
-      posicion = dibujarTablero(posicion, tablero, maximo, +1);
+      person = drawTable(playLand, person, 1, 0);
     }
   });
 };
 
-function dibujarTablero(inicio, tablero, limite, valor) {
-  let posicion = inicio;
-  //despintar ultimo elemento activo
-  tablero[posicion - 1].classList.remove("activo");
-  //calcular futura posicion  
-  posicion += valor;
-  //validar no traspasar borde izquierdo
-  if (posicion % 4 == 0) {
-    if (valor == -1) {
-      posicion -= valor;
-    }
+function drawTable(playLand, person, levelValue, deepValue) {
+  //referencia de estado inicial
+  let reference = { ...person };
+
+  //quitar pintura de recuadro actual
+  playLand[reference.y].children[reference.x].classList.remove("activo");
+  //calcular maxima profundidad
+  const maxDeep = playLand.length;
+
+  //agregar coordenada futura
+  reference.y += deepValue;
+  reference.x += levelValue;
+
+  //validar profundidad (direccion hacia abajo maxima)
+  if (person.y + deepValue > maxDeep-1) {
+    reference.y = maxDeep-1;
   }
-  //validar no traspasar borde derecho
-  if (inicio % 4 == 0 && valor == 1) {
-    posicion -= valor;
+
+  //validar profundidad (direccion hacia arriba)
+  if (person.y + deepValue <= 0) {
+    reference.y = 0;
   }
-  //validar area inferior
-  if (posicion > limite) {
-    posicion -= valor;
+  //calcular maximo nivel
+  const maxLevel = playLand[reference.y].children.length;
+  console.log(maxLevel)
+
+  //validar nivel (direccion hacia la derecha)
+  if (person.x + levelValue > maxLevel-1) {
+    reference.x = maxLevel-1;
   }
-  //validar area superior
-  if (posicion < 1) {
-    posicion -= valor;
-    if (posicion < 1) {
-      posicion = 1;
-    }
+
+  //validar nivel (direccion hacia la izquierda)
+  if (person.x + levelValue <= 0) {
+    reference.x = 0;
   }
-  //dibujar tablero
-  tablero[posicion - 1].classList.add("activo");
-  //regresar nueva posicion
-  return posicion;
+
+  playLand[reference.y].children[reference.x].classList.add("activo");
+
+  return reference;
 }
