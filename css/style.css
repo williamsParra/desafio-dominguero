@@ -1,17 +1,24 @@
 
-.contenedor{
-    display:block
+.container{
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
 }
 
-.cuadrado{
+.square{
     display:inline-block;
     background-color:cornsilk;
     width: 180px;
     height: 180px;    
     margin: 5px;
     border : solid 2px black;
+    border-radius: 20px;
 }
 
-.activo{
+.active{
     background-color: aqua;
+    transform: scale(1.02);
+    box-shadow: 0px 0px 10px black;
 }
